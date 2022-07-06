@@ -7,7 +7,7 @@ const NewSlot = () => {
 
   function saveHandler(inputData){
     console.log("inside");
-    fetch("https://react-day3-334ad-default-rtdb.firebaseio.com/users.json",{
+    fetch("https://apptocheckavailableslots-default-rtdb.firebaseio.com/users.json",{
         method: "POST",
         body: JSON.stringify(inputData),
         header: {

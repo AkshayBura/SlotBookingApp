@@ -8,7 +8,7 @@ const HighlightedSlot = (props) => {
                 day: '2-digit',
                 year: 'numeric', 
             }).format(new Date(props.date))}</p>
-      <div>{props.slot}</div>
+      <div>09:00am - 12:00pm</div>
       <div>{props.name}</div>
       <div>{props.lecture}</div>
       <div>{props.link}</div>

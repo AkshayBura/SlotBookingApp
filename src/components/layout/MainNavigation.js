@@ -5,17 +5,17 @@ import './MainNavigation.css';
 function MainNavigation  () {
   return (
     <header className='header'>
-      <div className='logo'>Great Quotes</div>
+      <div className='logo'>Slots</div>
       <nav className='nav'>
         <ul>
           <li>
             <NavLink to='/datelist' activeClassName='active'>
-              All Quotes
+              All Slots
             </NavLink>
           </li>
           <li>
             <NavLink to='/new-slot' activeClassName='active'>
-              Add a Quote
+              Add a Slot
             </NavLink>
           </li>
         </ul>

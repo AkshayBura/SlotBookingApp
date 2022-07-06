@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import DateList from '../components/slot/DateList';
 
-const DUMMY_QUOTES = [];
+const DUMMY_DATES = [];
 
 const AllDates = () => {
-  const [taskData, setTaskData] = useState(DUMMY_QUOTES);
+  const [taskData, setTaskData] = useState(DUMMY_DATES);
   useEffect(()=>{
     fetchHandler();
   },[]);
@@ -13,7 +13,7 @@ const AllDates = () => {
     return unique;
   }
   async function fetchHandler(){
-    const response = await fetch("https://react-day3-334ad-default-rtdb.firebaseio.com/users.json");
+    const response = await fetch("https://apptocheckavailableslots-default-rtdb.firebaseio.com/users.json");
     const data = await response.json();
     // console.log(data);
     const loadedData = [];

@@ -19,7 +19,7 @@ return (
         <blockquote>
           <p>{props.slots}</p>
         </blockquote>
-        <figcaption>{isFull?"Slots Full":"Slots Available"}</figcaption>
+        <figcaption>{isFull?"Slots are Full":"Slots are Available"}</figcaption>
       </figure>
       <Link className='btn' to={`/slot/${props.date}/${props.slots}`}>
         View Details

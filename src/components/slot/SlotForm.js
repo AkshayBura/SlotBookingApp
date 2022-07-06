@@ -23,7 +23,8 @@ function SlotForm  (props)  {
     },[])
 
     async function fetchHandler(){
-      const response = await fetch("https://react-day3-334ad-default-rtdb.firebaseio.com/users.json");
+      //const response = await fetch("https://react-day3-334ad-default-rtdb.firebaseio.com/users.json");
+      const response = await fetch("https://apptocheckavailableslots-default-rtdb.firebaseio.com/users.json");
       const data = await response.json();
       const loadedData = [];
       for(const key in data){
