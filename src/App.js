@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Slots from './pages/Slots';
+import AllDates from './pages/AllDates';
+import SlotDetail from './pages/SlotDetail';
+import NewSlot from './pages/NewSlot';
+import NotFound from './pages/NotFound';
+import Layout from './components/layout/Layout';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Switch>
+        <Route path='/' exact>
+          <Redirect to='/datelist' />
+        </Route>
+        <Route path='/datelist' exact>
+          <AllDates />
+        </Route>
+        <Route path='/datelist/:dateId'>
+          <Slots/>
+        </Route>
+        <Route path='/slot/:dateId/:slotId'>
+          <SlotDetail/>
+        </Route>
+        <Route path='/new-slot'>
+          <NewSlot />
+        </Route>
+        <Route path='*'>
+          <NotFound />
+        </Route>
+      </Switch>
+    </Layout>
   );
 }
 
