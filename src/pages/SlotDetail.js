@@ -1,43 +1,40 @@
 import { Fragment, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
+import BookSlotService from '../services/Book.Slot.Services';
 import HighlightedSlot from '../components/slot/HighlightedSlot';
-// import Comments from '../components/comments/Comments';
-
-// const DUMMY_QUOTES = [
-//   { id: 'q1', author: 'author-1', text: 'Learning React is fun!' },
-//   { id: 'q2', author: 'author-2', text: 'Learning React is great!' },
-// ];
+import LoadingSpinner from '../components/UI/LoadingSpinner';
 
 const SlotDetail = () => {
-  useEffect(()=>{
-    fetchHandler();
-  },[])
   const params = useParams();
   const [slotData, setSlotData] = useState([]);
-
-console.log(params.dateId,params.slotId);
-async function fetchHandler(){
-  const response = await fetch("https://apptocheckavailableslots-default-rtdb.firebaseio.com/users.json");
-  const data = await response.json();
-  const loadedData = [];
-  for(const key in data){
-    loadedData.push(data[key]);
-  }
-  const slot = loadedData.filter(check => (check.slot === params.slotId && check.date === params.dateId)) ;
-  setSlotData(slot);
-
+  const [taskData, setTaskData] = useState([]);
+  const [isLoad, setLoad] = useState(true);
+  useEffect(() => {
+    fetchHandler();
+}, [taskData])
+async function fetchHandler() {
+  setLoad(taskData.length>0?false:true);
+    try {
+        const data = await BookSlotService.getAllSlots();
+        setSlotData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    } catch (err) {
+        console.log(err);
+    }
+    setTaskData(slotData.filter(check => (check.date === params.dateId && check.slot === params.slotId)));
+    
 }
 
-  // const quote = DUMMY_QUOTES.find((quote) => quote.id === params.quoteId);
 
-  // if (!quote) {
-  //   return <p>No quote found!</p>;
-  // }
-
-  return (
+  return (<>
+    {isLoad && (
+      <form className='form'>
+    <div className='loading'>
+      <LoadingSpinner />
+    </div>
+    </form>
+  )}
     <Fragment>
-      {slotData.map((data)=>(
+      {taskData.map((data)=>(
         <HighlightedSlot name={data.name} lecture={data.lecture} date={data.date} slot={data.slot} link={data.link} />
       ))}
 
@@ -45,6 +42,7 @@ async function fetchHandler(){
         <Comments />
       </Route> */}
     </Fragment>
+    </>
   );
 };
 

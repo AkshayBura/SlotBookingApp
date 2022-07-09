@@ -5,6 +5,8 @@ import SlotDetail from './pages/SlotDetail';
 import NewSlot from './pages/NewSlot';
 import NotFound from './pages/NotFound';
 import Layout from './components/layout/Layout';
+import AddSlot from './pages/AddSlot';
+import SearchForm from './pages/SearchForm';
 
 function App() {
   return (
@@ -24,6 +26,12 @@ function App() {
         </Route>
         <Route path='/new-slot'>
           <NewSlot />
+        </Route>
+        <Route path='/add-slot'>
+          <AddSlot />
+        </Route>
+        <Route path='/search-slot'>
+          <SearchForm />
         </Route>
         <Route path='*'>
           <NotFound />

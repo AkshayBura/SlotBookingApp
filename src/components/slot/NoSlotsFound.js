@@ -3,9 +3,9 @@ import './NoSlotsFound.css';
 const NoSlotsFound = () => {
   return (
     <div className='noquotes'>
-      <p>No Slots found!</p>
+      <p>No quotes found!</p>
       <a className='btn'>
-        Add a Slot
+        Add a Quote
       </a>
     </div>
   );

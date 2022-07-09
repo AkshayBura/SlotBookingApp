@@ -2,16 +2,17 @@ import './HighlightedSlot.css';
 
 const HighlightedSlot = (props) => {
   return (
+
     <div className='quote'>
-      <p>{new Intl.DateTimeFormat('en-GB', { 
+      <p className='date'>{new Intl.DateTimeFormat('en-GB', { 
                 month: 'long', 
                 day: '2-digit',
                 year: 'numeric', 
             }).format(new Date(props.date))}</p>
-      <div>09:00am - 12:00pm</div>
-      <div>{props.name}</div>
-      <div>{props.lecture}</div>
-      <div>{props.link}</div>
+      <div><span id='time'>Time:</span> {props.slot}</div>
+      <div><span id='prof-name'>Prof Name:</span> {props.name}</div>
+      <div><span id='lec'>Lecture:</span> {props.lecture}</div>
+      <div><span id='lec-link'>Lecture Link:</span> {props.link}</div>
     </div>
   );
 };

@@ -1,61 +1,66 @@
 import SlotList from "../components/slot/Slotlist";
 import { useParams } from 'react-router-dom';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import BookSlotService from "../services/Book.Slot.Services";
+import AddSlotService from "../services/Add.Slot.Services";
+import LoadingSpinner from "../components/UI/LoadingSpinner";
 // const slot=[];
 
-function Slots(){
-    useEffect(()=>{
-        fetchHandler();
-      });
+function Slots() {
     const params = useParams();
+    const [isLoad, setLoad] = useState(true);
+    const [slotData, setSlotData] = useState([]);
+    const [bookedSlot, setBookSlot] = useState([]);
     const [taskData, setTaskData] = useState([]);
-    const [fullSLot1, setSlot1] = useState();
-    const [fullSLot2, setSlot2] = useState();
-    const [fullSLot3, setSlot3] = useState();
-    const [fullSLot4, setSlot4] = useState();
-    
-    async function fetchHandler(){
-        const response = await fetch("https://apptocheckavailableslots-default-rtdb.firebaseio.com/users.json");
-        const data = await response.json();
-        const loadedData = [];
-        for(const key in data){
-          loadedData.push(data[key]);
+    useEffect(() => {
+        fetchHandler();
+    }, [taskData])
+    async function fetchHandler() {
+        try {
+            const data = await AddSlotService.getAllSlots();
+            setSlotData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        } catch (err) {
+            console.log(err);
         }
-        const slot1 = loadedData.filter(check => (check.slot === "Slot1" && check.date === params.dateId)) ;
-        const slot2 = loadedData.filter(check => (check.slot === "Slot2" && check.date === params.dateId));
-        const slot3 = loadedData.filter(check => (check.slot === "Slot3" && check.date === params.dateId));
-        const slot4 = loadedData.filter(check => (check.slot === "Slot4" && check.date === params.dateId));  
-        const slot1Size = slot1.length===4?true:false;
-        setSlot1(slot1Size);
-        setSlot2(slot2.length===4?true:false);
-        setSlot3(slot3.length===4?true:false);
-        setSlot4(slot4.length===4?true:false);
-        setTaskData([
-            {
-                slot: "Slot1",
-                full: fullSLot1
-            },
-            {
-                slot: "Slot2",
-                full: fullSLot2
-            },
-            {
-                slot: "Slot3", 
-                full: fullSLot3
-            },
-            {
-                slot: "Slot4",
-                full: fullSLot4
-            }
-        ]
-        );
-      }    
-      
+        try {
+            const data = await BookSlotService.getAllSlots();
+            setBookSlot(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        } catch (err) {
+            console.log(err);
+        }
+       
+        // console.log(bookedSlot.filter(check=>(check.date === slots[0].date && check.slot === (slots[0].from + " - " +slots[0].to))).length);
+        
+        setTaskData(objectHandler());
+        
+    }
+    function objectHandler(){
+        const slots = slotData.filter(check => (check.date === params.dateId));
+        const dataStatus = [];
+         for(const key in slots) {
+            dataStatus.push({
+                slot: (slots[key].from + " - " + slots[key].to),
+                full: (slots[key].slot === bookedSlot.filter(check=>(check.date === slots[key].date && check.slot === (slots[key].from + " - " +slots[key].to))).length?true:false)
+            })
+        } 
+        setLoad(dataStatus.length>0?false:true)
+        return dataStatus;
+    }
+
     // filterHandler();
-    return(
-        <SlotList date={params.dateId} slots={taskData}/>
+    return (
+        <>
+        {isLoad && (
+            <form className='form'>
+          <div className='loading'>
+            <LoadingSpinner />
+          </div>
+          </form>
+        )}
+        <SlotList date={params.dateId} slots={taskData} />
+        </>
     );
-    
+
 }
 
 export default Slots;

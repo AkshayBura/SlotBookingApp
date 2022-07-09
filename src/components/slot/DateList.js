@@ -7,12 +7,10 @@ function  DateList (props)  {
   return (
     <Fragment>
       <ul className='list'>
-        {props.quotes.map((quote) => (
+        {props.dates.map((data) => (
           <DateItem
-            key={quote.id}
-            id={quote.id}
-            author={quote.name}
-            date={quote.date}
+            key={Math.random()}
+            date={data.date}
           />
         ))}
       </ul>

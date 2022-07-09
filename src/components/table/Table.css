@@ -1,0 +1,49 @@
+.table-div{
+    /* color: beige; */
+    padding: 2rem;
+    margin: auto;
+    text-align: center;
+}
+
+table{
+    border: 3px;
+    border-collapse: separate;
+    border-spacing: 20px 15px;
+    background-color: whitesmoke;
+}
+
+th,
+td {
+  width: 80%;
+  text-align: center;
+  /* border: 1px solid beige; */
+  padding: 5px;
+
+}
+
+.btn-primary{
+    background-color: #16718e;
+    border: none;
+    padding: 10px 15px;
+}
+
+/* .btn-danger{
+    background-color: lightcoral;
+    border: none;
+    
+} */
+.btn1 {
+    text-decoration: none;
+    background-color: #d10101;
+    color: white;
+    border-radius: 4px;
+    padding: 10px 15px;
+    border: 1px solid #d10101;
+    cursor: pointer;
+  }
+  
+  .btn1:hover,
+  .btn1:active {
+    background-color: lightcoral;
+    border-color: lightcoral;
+  }
